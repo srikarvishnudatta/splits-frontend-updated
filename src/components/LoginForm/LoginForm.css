@@ -1,0 +1,9 @@
+.login-form{
+    max-width: 600px;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: end;
+}
+.login-form button{
+    margin-top: 1em;
+}

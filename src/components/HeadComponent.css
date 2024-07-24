@@ -1,0 +1,9 @@
+.heading-main{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
