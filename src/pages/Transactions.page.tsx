@@ -22,7 +22,7 @@ function TransactionsPage() {
     return (
       <>
         <HeadingComponent heading={'Your Expenses'} buttonText={'Add New Expense'} open={open}>
-          {/* <ExpenseSummary expenseMap={data.expensesMap}  members={members}/> */}
+          <ExpenseSummary expenseMap={data.expensesMap}  members={members}/>
         </HeadingComponent>
         <NewTransactionModal
           opened={opened}
