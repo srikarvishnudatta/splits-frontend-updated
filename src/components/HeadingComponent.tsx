@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { Button, Text, Divider } from '@mantine/core';
 import { IconFilePlus } from '@tabler/icons-react';
+import './ExpenseSummary/ExpenseSumary.css'
 import './HeadComponent.css'
 interface HeadingComponentProps{
     heading:string;

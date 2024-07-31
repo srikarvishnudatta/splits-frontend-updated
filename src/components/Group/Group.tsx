@@ -1,5 +1,5 @@
 import { Button, Card, Text, Group as GroupUI } from '@mantine/core';
-import { IconCircleMinus } from '@tabler/icons-react';
+import { IconCircleMinus, IconEdit, IconFile } from '@tabler/icons-react';
 import './Group.css'
 import { GroupType } from '@/types/types';
 import { useDisclosure } from '@mantine/hooks';
@@ -12,10 +12,9 @@ function Group(groupData: GroupType) {
   function navigateGroup(){
     navigate(`/${groupData.groupId}/transactions`)
   }
-  // add a button to go to the group data rather than clicking anywher
   return (
     <>
-      <Card shadow='sm' padding={"lg"} radius={"md"} withBorder onClick={navigateGroup}>
+      <Card shadow='sm' padding={"lg"} radius={"md"} withBorder>
         <div className='group-card'>
         <Text fz={"h2"}>
             {groupData.name}
@@ -24,15 +23,21 @@ function Group(groupData: GroupType) {
         {groupData.groupMembers.map((member, index) => <Text key={index} variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>{member}</Text>)}
         </GroupUI>
         </div>
-       <div className='group-card'>
         <Text ff={"monospace"} fw={"lighter"} fz={"sm"}>
             Created on {groupData.createdAt}
         </Text>
-       <Button leftSection={<IconCircleMinus stroke={2} />} 
+        <div className='group-card'>
+        <Button leftSection={<IconCircleMinus stroke={2} />} 
        onClick={open}>
             Delete
         </Button>
-       </div>
+        <Button leftSection={<IconFile />} onClick={navigateGroup} >
+            Open
+        </Button>
+        <Button leftSection={<IconEdit />} >
+            Edit
+        </Button>
+        </div>
     </Card>
     <ConfirmModal close={close} opened={opened} title='Are you sure?' centered onConfirm={() => deleteGroup(groupData.groupId)}/>
     </>

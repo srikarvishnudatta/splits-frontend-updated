@@ -1,0 +1,6 @@
+.expense-summary{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    font-weight: 500;
+}

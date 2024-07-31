@@ -19,25 +19,18 @@ function NewTransactionModal(props: TransactionModal) {
     const name = nameRef.current?.value || '';  
     let count = spiltAmong.length;                  
     const fractions = props.members.map((member) => {
-        if(spiltAmong.includes(member)) return {[member]: amount/count}
+        if(spiltAmong.includes(member)) return {[member]: Number((amount/count).toFixed(2))}
         return {[member]:0}
     })
-    let newMap = {...props.expensesMap}
-    const array = Object.keys(newMap)
-    const paidIndex = array.findIndex((element) => element === paidBy)
-    array.forEach((value, index)=> {
-        newMap[paidBy][index] += fractions[index][value]
-        newMap[value][paidIndex] -= fractions[index][value]
-    });
+    
+    const newRe = fractions.reduce((acc, curr) => { return {...acc,...curr}}, {})
     const body: TransactionBody = {
         transactionName: name,
         transactionValue: amount,
         paidBy: paidBy as string,
-        splitAmong: fractions.join(" "),
-        expensesMap: newMap
+        splitAmong: newRe,
     }
     const groupId = props.groupId || " "
-    console.log(groupId);
     mutate({groupId, body})
     if(isSuccess) props.close()
   }

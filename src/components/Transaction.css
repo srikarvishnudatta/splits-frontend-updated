@@ -1,10 +1,11 @@
-.heading-main{
+.transactions{
     max-width: 1000px;
     margin: 0 auto;
-    margin-top: 60px;
 }
-.heading{
+.transaction{
+    margin-bottom: 1em;
+}
+.transaction-body{
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
 }

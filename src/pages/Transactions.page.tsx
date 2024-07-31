@@ -1,6 +1,7 @@
 import ExpenseSummary from '@/components/ExpenseSummary/ExpenseSummary';
 import HeadingComponent from '@/components/HeadingComponent';
 import NewTransactionModal from '@/components/NewTransactionModal';
+import Transactions from '@/components/Transactions';
 import { fetchTransactions } from '@/util/http';
 import { useDisclosure } from '@mantine/hooks';
 import { useQuery } from '@tanstack/react-query';
@@ -21,8 +22,7 @@ function TransactionsPage() {
     return (
       <>
         <HeadingComponent heading={'Your Expenses'} buttonText={'Add New Expense'} open={open}>
-          <ExpenseSummary expenseMap={data.expensesMap} />
-          <h1>Printing content</h1>
+          {/* <ExpenseSummary expenseMap={data.expensesMap}  members={members}/> */}
         </HeadingComponent>
         <NewTransactionModal
           opened={opened}
@@ -30,9 +30,9 @@ function TransactionsPage() {
           title={'Add New Transaction'}
           centered={true}
           members={members}
-          expensesMap={data.expensesMap}
           groupId={groupId}
         />
+       <Transactions transactions={data.transactions} groupId={groupId}/>
       </>
     );
   }

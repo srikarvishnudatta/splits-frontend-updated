@@ -23,16 +23,23 @@ export interface ConfirmModalProps extends ModalType{
 }
 export interface ExpenseMap{
     expenseMap: object;
+    members: string[];
 }
 export interface TransactionModal extends ModalType{
     groupId:string;
     members: string[];
-    expensesMap: object;
 }
 export interface TransactionBody{
     transactionName: string;
      transactionValue: number;
      paidBy: string;
+    splitAmong: object;
+}
+export interface TransactionType {
+    paidBy: string;
     splitAmong: string;
-     expensesMap: object;
+    transactionId: string
+    transactionName:string;
+    transactionValue: number;
+    groupId:string;
 }
