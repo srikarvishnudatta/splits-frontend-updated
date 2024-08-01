@@ -16,13 +16,12 @@ function TransactionsPage() {
     queryFn: () => fetchTransactions(groupId),
   });
   const [opened, { open, close }] = useDisclosure(false);
-  console.log(data);
   if (data) {
     const members = Object.keys(data.expensesMap);
     return (
       <>
         <HeadingComponent heading={'Your Expenses'} buttonText={'Add New Expense'} open={open}>
-          <ExpenseSummary expenseMap={data.expensesMap}  members={members}/>
+          <ExpenseSummary expenseMap={data.expensesMap}/>
         </HeadingComponent>
         <NewTransactionModal
           opened={opened}

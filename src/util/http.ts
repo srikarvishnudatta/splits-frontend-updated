@@ -1,5 +1,4 @@
 import { NewGroup, TransactionBody } from "@/types/types";
-
 export async function createNewUser(eventData : {email:string}){
     const response = await fetch("http://localhost:8081/user", {
         method:"POST",
@@ -53,4 +52,7 @@ export async function removeTransaction(transactionId:string, groupId:string){
     });
     const data = await response.json();
     return data
+}
+export async function updateTransaction(transactionId:string, groupId:string){
+    
 }

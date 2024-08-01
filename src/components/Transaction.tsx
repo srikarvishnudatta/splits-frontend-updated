@@ -1,20 +1,31 @@
 import { TransactionType } from '@/types/types'
 import { removeTransaction } from '@/util/http';
 import { Button, Card, Text } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks';
 import { IconCircleMinus } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query';
+import UpdateTransactionModal from './UpdateTransactionModal';
+
+interface RequestType{
+    transactionId:string;
+     groupId:string;
+}
 
 function Transaction(props: TransactionType) {
-    const {mutate} = useMutation({mutationFn: ({transactionId, groupId}) => removeTransaction(transactionId, groupId)});
+    const {mutate} = useMutation<unknown, Error, RequestType>({mutationFn: ({transactionId, groupId}) => removeTransaction(transactionId, groupId)});
     function deleteTransaction(){
         const transactionId = props.transactionId;
         const groupId = props.groupId;
         mutate({transactionId, groupId})
     }
+    const [opened, { open, close }] = useDisclosure(false);
     
     const splitData = Object.keys(props.splitAmong);
+    console.log(props);
+    
     return (
-        <Card className='transaction' shadow='sm' padding={"lg"} radius={"md"}>
+        <>
+            <Card className='transaction' shadow='sm' padding={"lg"} radius={"md"}>
             <div className='transaction-body'>
             <Text fz='h2'>
             {props.transactionName}
@@ -35,8 +46,19 @@ function Transaction(props: TransactionType) {
             <Button leftSection={<IconCircleMinus stroke={2} />} onClick={deleteTransaction}>
             Delete
         </Button>
+        <Button onClick={() => open()}>
+            Edit
+        </Button>
             </div>
         </Card>
+        <UpdateTransactionModal 
+                opened={opened}
+                close={close}
+                title={'Update the Transaction'}
+                centered={true}
+                 {...props}           
+        />
+        </>
     )
 }
 

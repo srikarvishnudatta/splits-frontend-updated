@@ -22,12 +22,14 @@ export interface ConfirmModalProps extends ModalType{
     onConfirm: () => void
 }
 export interface ExpenseMap{
-    expenseMap: object;
-    members: string[];
+    expenseMap: {[x:string] : {[x:string]: number}};
 }
 export interface TransactionModal extends ModalType{
     groupId:string;
     members: string[];
+}
+export interface UpdateTransactionModalType extends ModalType, TransactionType{
+
 }
 export interface TransactionBody{
     transactionName: string;
@@ -37,7 +39,7 @@ export interface TransactionBody{
 }
 export interface TransactionType {
     paidBy: string;
-    splitAmong: string;
+    splitAmong: {[x:string] : number};
     transactionId: string
     transactionName:string;
     transactionValue: number;

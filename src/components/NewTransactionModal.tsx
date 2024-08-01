@@ -4,12 +4,17 @@ import { Button, Modal, MultiSelect, NumberInput, Select, TextInput } from '@man
 import { useMutation } from '@tanstack/react-query';
 import { FormEvent, useRef, useState } from 'react';
 
+interface RequestType{
+  groupId:string;
+  body: TransactionBody;
+}
+
 function NewTransactionModal(props: TransactionModal) {
   const [paidBy, setPaidBy] = useState<string | null>('');
   const [spiltAmong, setSplitAmong] = useState<string[]>([]);
   const nameRef = useRef<HTMLInputElement>(null);
   const valueRef = useRef<HTMLInputElement>(null);
-  const {mutate, isSuccess} = useMutation({
+  const {mutate, isSuccess} = useMutation<unknown, Error, RequestType>({
     mutationFn: ({groupId, body}) => newTransaction(groupId, body)
   });
   function submitHandler(ev: FormEvent){
@@ -21,14 +26,12 @@ function NewTransactionModal(props: TransactionModal) {
     const fractions = props.members.map((member) => {
         if(spiltAmong.includes(member)) return {[member]: Number((amount/count).toFixed(2))}
         return {[member]:0}
-    })
-    
-    const newRe = fractions.reduce((acc, curr) => { return {...acc,...curr}}, {})
+    }).reduce((acc, curr) => {return {...acc, ...curr}}, {})
     const body: TransactionBody = {
         transactionName: name,
         transactionValue: amount,
         paidBy: paidBy as string,
-        splitAmong: newRe,
+        splitAmong: fractions,
     }
     const groupId = props.groupId || " "
     mutate({groupId, body})

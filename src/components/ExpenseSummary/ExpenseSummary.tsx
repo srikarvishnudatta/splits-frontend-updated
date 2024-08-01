@@ -1,6 +1,6 @@
 import { ExpenseMap } from "@/types/types";
 
-function ExpenseSummary({expenseMap, members}: ExpenseMap) {
+function ExpenseSummary({expenseMap}: ExpenseMap) {
   if(!expenseMap){
     <div>Data is being fetched</div>
   }else{
