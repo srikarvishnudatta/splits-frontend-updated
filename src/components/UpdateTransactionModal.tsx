@@ -1,6 +1,13 @@
 import { TransactionBody, UpdateTransactionModalType } from '@/types/types'
+import { updateTransaction } from '@/util/http';
 import { Button, Modal, MultiSelect, NumberInput, Select, TextInput } from '@mantine/core'
+import { useMutation } from '@tanstack/react-query';
 import { ChangeEvent, FormEvent, useState } from 'react';
+
+interface RequestType{
+  transactionId:string;
+   newBody: TransactionBody;
+}
 
 function UpdateTransactionModal(props: UpdateTransactionModalType) {
     const members = Object.keys(props.splitAmong);
@@ -9,9 +16,11 @@ function UpdateTransactionModal(props: UpdateTransactionModalType) {
     const [paidBy, setPaidBy] = useState(props.paidBy);
     const [newName, setNewName] = useState(props.transactionName);
     const [newValue, setNewValue] = useState(props.transactionValue);
+    const {mutate} = useMutation<unknown, Error, RequestType>({
+      mutationFn: ({transactionId, newBody}) => updateTransaction(transactionId, newBody)
+    })
     function handleUpdate(ev: FormEvent){
         ev.preventDefault();
-        console.log(newName, newValue, splits, paidBy);
         const count = splits.length;
         const newFractions = members.map((member) => (
             splits.includes(member) ? {[member]: Number((newValue/count).toFixed(2)) } : {[member]:0}
@@ -22,6 +31,10 @@ function UpdateTransactionModal(props: UpdateTransactionModalType) {
             paidBy,
             splitAmong: newFractions
         }
+        const transactionId = props.transactionId
+        mutate({ transactionId,newBody})
+        props.close();
+        setTimeout(() => props.refetch(), 500);
     }
   return (
     <Modal 

@@ -16,13 +16,12 @@ function Transaction(props: TransactionType) {
     function deleteTransaction(){
         const transactionId = props.transactionId;
         const groupId = props.groupId;
-        mutate({transactionId, groupId})
+        mutate({transactionId, groupId});
+        setTimeout(() => props.refetch(), 500);
     }
     const [opened, { open, close }] = useDisclosure(false);
     
-    const splitData = Object.keys(props.splitAmong);
-    console.log(props);
-    
+    const splitData = Object.keys(props.splitAmong);    
     return (
         <>
             <Card className='transaction' shadow='sm' padding={"lg"} radius={"md"}>
@@ -56,7 +55,8 @@ function Transaction(props: TransactionType) {
                 close={close}
                 title={'Update the Transaction'}
                 centered={true}
-                 {...props}           
+                 {...props}     
+                 refetch={props.refetch}      
         />
         </>
     )

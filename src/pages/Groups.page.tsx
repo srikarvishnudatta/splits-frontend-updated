@@ -7,7 +7,7 @@ import GroupModal from '@/components/Group/GroupModal';
 import HeadingComponent from '@/components/HeadingComponent';
 function GroupsPage() {
     const userId = localStorage.getItem('userId') ?? ' '
-    const {data, isFetching, isError}= useQuery<GroupType[]>({
+    const {data, isFetching, isError, refetch}= useQuery<GroupType[]>({
         queryKey:['groups', userId],
         queryFn: () => fetchUserGroups(userId),
         staleTime:300
@@ -27,7 +27,7 @@ function GroupsPage() {
         </div>
       )}
     </HeadingComponent>
-    <GroupModal  opened={opened} close={close} title="New Group" centered/>
+    <GroupModal  opened={opened} close={close} title="New Group" centered refetch={refetch}/>
     </>
 }
 

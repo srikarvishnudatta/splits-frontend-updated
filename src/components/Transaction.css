@@ -9,3 +9,8 @@
     display: flex;
     justify-content: space-between;
 }
+.transaction-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}

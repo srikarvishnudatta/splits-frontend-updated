@@ -5,10 +5,16 @@ import { GroupPropsType, NewGroup } from '@/types/types';
 import { useMutation } from '@tanstack/react-query';
 import { createNewGroup } from '@/util/http';
 
+interface RequestType{
+  userId:string;
+  group: NewGroup;
+}
+
+
 function GroupModal(props: GroupPropsType) {
     const [members, setMembers] = useState<string[]>(["Someone"]);
     const userId = localStorage.getItem('userId') ?? ' '
-    const { mutate}= useMutation({
+    const { mutate}= useMutation<unknown, Error, RequestType>({
       mutationFn: ({userId, group}) => createNewGroup(userId, group),
     });
     const ref = useRef<HTMLInputElement>(null);
@@ -43,6 +49,7 @@ function GroupModal(props: GroupPropsType) {
       }
       mutate({userId, group})
       props.close();
+      setTimeout(() => props.refetch(), 500)
     }
     
   return (

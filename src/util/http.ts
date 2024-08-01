@@ -43,8 +43,6 @@ export async function newTransaction(groupId:string, body: TransactionBody){
     return data;
 }
 export async function removeTransaction(transactionId:string, groupId:string){
-    console.log(transactionId, groupId);
-    
     const response = await fetch(`http://localhost:8081/${transactionId}/delete`, {
         method:"DELETE",
         headers: {"Content-type":"application/json"},
@@ -53,6 +51,12 @@ export async function removeTransaction(transactionId:string, groupId:string){
     const data = await response.json();
     return data
 }
-export async function updateTransaction(transactionId:string, groupId:string){
-    
+export async function updateTransaction(transactionId:string, newBody: TransactionBody){
+    const response = await fetch(`http://localhost:8081/${transactionId}/update`, {
+        method:"PATCH",
+        headers: {"Content-type":"application/json"},
+        body: JSON.stringify(newBody)
+    });
+    const data = await response.json();
+    return data;
 }

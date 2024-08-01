@@ -14,6 +14,7 @@ export interface ModalType{
     close: () => void;
     title: string;
     centered:boolean;
+    refetch: () => void;
 }
 export interface GroupPropsType extends ModalType{
     
@@ -27,6 +28,7 @@ export interface ExpenseMap{
 export interface TransactionModal extends ModalType{
     groupId:string;
     members: string[];
+
 }
 export interface UpdateTransactionModalType extends ModalType, TransactionType{
 
@@ -44,4 +46,5 @@ export interface TransactionType {
     transactionName:string;
     transactionValue: number;
     groupId:string;
+    refetch: () => void;
 }

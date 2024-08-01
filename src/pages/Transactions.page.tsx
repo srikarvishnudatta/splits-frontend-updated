@@ -11,7 +11,7 @@ function TransactionsPage() {
   const { pathname } = useLocation();
   const index = pathname.lastIndexOf('/');
   const groupId = pathname.substring(1, index);
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['transactions', groupId],
     queryFn: () => fetchTransactions(groupId),
   });
@@ -30,8 +30,9 @@ function TransactionsPage() {
           centered={true}
           members={members}
           groupId={groupId}
+          refetch={refetch}
         />
-       <Transactions transactions={data.transactions} groupId={groupId}/>
+       <Transactions transactions={data.transactions} groupId={groupId} refetch={refetch}/>
       </>
     );
   }
