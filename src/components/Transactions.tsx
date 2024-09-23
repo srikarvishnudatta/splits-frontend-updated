@@ -11,7 +11,6 @@ function Transactions({transactions, groupId, refetch} : any) {
             {transactions.map((transaction: TransactionType) => <Transaction key={transaction.transactionId} {...transaction} groupId={groupId}
             refetch={refetch}
             /> 
-          
           )}
     </div>
     </>
